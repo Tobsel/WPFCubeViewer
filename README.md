@@ -55,15 +55,16 @@ Code Red Cube
 return 7;
 ```
 Result
-<img title="Colored Cube" alt="Colored Cube" src="images/sample_cube.png">
 
+<img title="Colored Cube" alt="Colored Cube" src="images/sample_cube.png" width="300" height="330">
 
 Code Colored Cube
 ```csharp
 return Math.Abs(x);
 ```
 Result
-<img title="Colored Cube" alt="Colored Cube" src="images/sample_cube_color.png">
+
+<img title="Colored Cube" alt="Colored Cube" src="images/sample_cube_color.png" width="300" height="330">
 
 
 Code Diamond Shape
@@ -77,7 +78,8 @@ return 0;
 ```
 
 Result
-<img title="Diamond" alt="Diamond" src="images/diamond.png">
+
+<img title="Diamond" alt="Diamond" src="images/diamond.png" width="320" height="300">
 
 Code Stairs
 ```csharp
@@ -97,7 +99,8 @@ return 0;
 ```
 
 Result
-<img title="Diamond" alt="Diamond" src="images/stairs.png">
+
+<img title="Diamond" alt="Diamond" src="images/stairs.png" width="300" height="300">
 
 
 Code Animated Wave / Boat
@@ -225,7 +228,8 @@ return (int)finalColor;
 ```
 
 Result
-<img title="Diamond" alt="Diamond" src="images/boat.png">
+
+<img title="Diamond" alt="Diamond" src="images/boat.png" width="320" height="300">
 
 This is also animated.
 
