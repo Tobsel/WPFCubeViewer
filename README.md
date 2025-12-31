@@ -36,14 +36,14 @@ The color of each voxel can be definied by the return value (int) and is seen be
 
 The settings allow you to change the extent (number of voxels +/- per axis) and to enable animation (when t is used in script).
 
-<img title="Settings" alt="Settings" src="images/settings.png">
+<img title="Settings" alt="Settings" src="images/Settings.png">
 
 
 ## Compile-Error
 
 If there is an error in the script it is/can not be executed. The error message is shown in the Tab "Compile-Error".
 
-<img title="Settings" alt="Settings" src="images/error.png">
+<img title="Error" alt="Error" src="images/error.png" width="300" height="100">
 
 
 # Sample Code
