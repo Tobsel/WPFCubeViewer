@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WPFCubeViewer/WPFCubeViewer.csproj" />
+  <Project Path="WPFCubeViewerSample/WPFCubeViewerSample.csproj" />
+</Solution>
