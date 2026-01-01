@@ -50,7 +50,7 @@ If there is an error in the script it is/can not be executed. The error message 
 
 Here are some sample codes you can put in the C# Editor:
 
-Code Red Cube
+## Code Red Cube
 ```csharp
 return 7;
 ```
@@ -58,7 +58,7 @@ Result
 
 <img title="Colored Cube" alt="Colored Cube" src="images/sample_cube.png" width="300" height="330">
 
-Code Colored Cube
+## Code Colored Cube
 ```csharp
 return Math.Abs(x);
 ```
@@ -66,8 +66,7 @@ Result
 
 <img title="Colored Cube" alt="Colored Cube" src="images/sample_cube_color.png" width="300" height="330">
 
-
-Code Diamond Shape
+## Code Diamond Shape
 ```csharp
 double d = Math.Abs(x) + Math.Abs(y) + Math.Abs(z);
 
@@ -81,7 +80,7 @@ Result
 
 <img title="Diamond" alt="Diamond" src="images/diamond.png" width="320" height="300">
 
-Code Stairs
+## Code Stairs
 ```csharp
 if (z > 0 && x == y)
 {
@@ -100,10 +99,25 @@ return 0;
 
 Result
 
-<img title="Diamond" alt="Diamond" src="images/stairs.png" width="300" height="300">
+<img title="Stairs" alt="Stairs" src="images/stairs.png" width="300" height="300">
 
+## Code Voxel Wave
+```csharp
+double h = Math.Sin(x*0.5 + t*0.2) + Math.Cos(z*0.5 + t*0.2);
 
-Code Animated Wave / Boat
+if (Math.Abs(y - h*2) < 0.6)
+    return 14;
+
+return 0;
+```
+
+Result
+
+<img title="Voxelwave" alt="Voxelwave" src="images/voxel_wave.png" width="320" height="300">
+
+This is also animated
+
+## Code Animated Wave / Boat
 
 @phosphoer created a wonderful animated wave / boat example for replicube that you can find here:
 

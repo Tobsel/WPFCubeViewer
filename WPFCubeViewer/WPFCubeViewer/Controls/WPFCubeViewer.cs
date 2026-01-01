@@ -22,7 +22,7 @@ namespace WPFCubeViewer.Controls
         #region Privates
 
         IVoxelScript? script;
-        Dictionary<int, MeshGeometry3D> meshes = new();
+        Dictionary<int, List<ModelVisual3D>> frameModels = new();
         int frame = 0;
 
         DispatcherTimer? animationTimer;
@@ -47,6 +47,7 @@ namespace WPFCubeViewer.Controls
         private static void ExtentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             WPFCubeViewer? viewer = d as WPFCubeViewer;
+            viewer?.Reset();
             viewer?.Render();
         }
 
@@ -143,7 +144,30 @@ namespace WPFCubeViewer.Controls
             Children.Clear();
             Children.Add(new SunLight());
 
-            meshes.Clear();
+            if (IsAnimationEnabled)
+            {
+                var frm = frameModels[frame];
+                if (frm != null)
+                {
+                    foreach (var m in frm)
+                        Children.Add(m);
+                }
+
+            }
+            else
+            {
+                var meshes = CreateMeshes();
+                var model = CreateModel(meshes);
+
+                foreach (var m in model)
+                    Children.Add(m);
+            }
+        }
+
+        Dictionary<int, MeshGeometry3D> CreateMeshes()
+        {
+            var meshes = new Dictionary<int, MeshGeometry3D>();
+
             for (int x = -Extent; x <= Extent; x++)
                 for (int y = -Extent; y <= Extent; y++)
                     for (int z = -Extent; z <= Extent; z++)
@@ -160,6 +184,12 @@ namespace WPFCubeViewer.Controls
                         AddCube(mesh, x, y, z);
                     }
 
+            return meshes;
+        }
+
+        List<ModelVisual3D> CreateModel(Dictionary<int, MeshGeometry3D> meshes)
+        {
+            var models = new List<ModelVisual3D>();
             // Create ONE visual per color
             foreach (var kv in meshes)
             {
@@ -170,8 +200,27 @@ namespace WPFCubeViewer.Controls
                     Material = new DiffuseMaterial(brush)
                 };
 
-                Children.Add(new ModelVisual3D { Content = model });
+                models.Add(new ModelVisual3D { Content = model });
             }
+            return models;
+        }
+
+        void Reset()
+        {
+            frame = 0;
+            IsAnimationEnabled = false;
+        }
+
+        void CreateFrames()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                var meshes = CreateMeshes();
+                var models = CreateModel(meshes);
+                frameModels.Add(i, models);
+                frame++;
+            }
+            frame = 0;
         }
 
         /// <summary>
@@ -222,6 +271,8 @@ namespace WPFCubeViewer.Controls
         /// script is not updated. This method overwrites any previously compiled script instance.</remarks>
         public void Compile()
         {
+            Reset();
+
             try
             {
                 string source = $@"
@@ -271,7 +322,7 @@ public class Script : IVoxelScript
                     CompileError = String.Empty;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CompileError = ex.Message;
                 script = null;
@@ -316,7 +367,7 @@ public class Script : IVoxelScript
         {
             // Animation Timer (20 Frames)
             animationTimer = new DispatcherTimer();
-            animationTimer.Interval = TimeSpan.FromMilliseconds(30);
+            animationTimer.Interval = TimeSpan.FromMilliseconds(40);
             animationTimer.Tick += (s, e) =>
             {
                 // Add Frame
@@ -324,7 +375,7 @@ public class Script : IVoxelScript
                 // Render Frame
                 Render();
                 // If Frame > 20, reset to 0
-                if (frame > 20) frame = 0;
+                if (frame >= 20) frame = 0;
             };
         }
 
@@ -338,10 +389,16 @@ public class Script : IVoxelScript
         private void SetAnimation()
         {
             frame = 0;
+            frameModels = new Dictionary<int, List<ModelVisual3D>>(); ;
             if (IsAnimationEnabled)
+            {
+                CreateFrames();
                 animationTimer?.Start();
+            }
             else
+            {
                 animationTimer?.Stop();
+            }
         }
 
         #endregion
